@@ -19,10 +19,16 @@ const startFetching = async () => {
 		const gameCards = html('.game-card');
 
 		for (const gameCard of gameCards) {
+			const game = {};
+
 			const cardHtml = cheerio.load(gameCard);
+
+			const gameUrl = cardHtml('a');
+			game.url = gameUrl[0].attribs.href;
+
 			const images = cardHtml('img');
 
-			const game = {};
+
 			for (const image of images) {
 				if (image.attribs.alt == "game engine") {
 					game.engineUrl = url + image.attribs.src;
